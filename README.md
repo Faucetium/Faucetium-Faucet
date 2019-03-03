@@ -68,7 +68,3 @@
 ## to stop, use the command:
 
   npm stop
-
-## to do:
-  ban users
-  min withdrawal.
