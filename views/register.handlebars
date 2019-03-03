@@ -1,0 +1,18 @@
+{{#if loggedIn}}
+  You are logged in, use the faucet!
+{{else}}
+  <form method="POST">
+    {{#if usernameTaken}}
+      <strong>Username was taken, try another one.</strong><br>
+    {{/if}}
+    Username <input type="text" name="username"><br>
+    Password <input type="password" name="password"><br>
+    Email <input type="text" name="email"><br>
+    Blockchain Account <input type="text" name="account"><br>
+    Referral Code <input type="text" name="referral_code"><br>
+    <script type="text/javascript" src="http://api.solvemedia.com/papi/challenge.script?k=muaF2Cr7FRIiO6rR567KeqtmvIF18of1">
+    </script>
+    <br>
+    <input type="submit" value="register">
+  </form>
+{{/if}}

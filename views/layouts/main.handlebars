@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+<meta charset="utf-8" />
+
+<head>
+  <title>{{title}}</title>
+  <link rel="stylesheet" type="text/css" href="style.css">
+  {{#if refresh}}
+    <meta http-equiv="refresh" content="5">
+  {{/if}}
+</head>
+
+<body>
+  <div>
+    <a href="/">Home</a>
+    {{#unless loggedIn}}
+      <a href="login">
+        <div class="small_image_wrapper"><img class="small_image" src="/images/login.gif"></div>Login
+      </a>
+      <a href="register">
+        <div class="small_image_wrapper"><img class="small_image" src="/images/register.gif"></div>Register
+      </a>
+    {{/unless}}
+    {{#if loggedIn}}
+      <a href="withdraw">Withdraw</a>
+      <a href="faucet">Faucet</a>
+      {{#if isAdmin}}
+        <a href="admin">Admin</a>
+      {{/if}}
+      <a href="logout">Log Out</a>
+    {{/if}}
+  </div>
+  <br>
+  <div id="center-background">
+    <table id="faucet-table">
+      <tbody>
+        <tr>
+          <td id="faucet-table-padding">
+          </td>
+          <td id="center-column">
+            <div>
+              {{{body}}}
+            </div>
+          </td>
+          <td id="faucet-table-padding">
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <hr>
+  {{> includes/footer }}
+</body>
+
+</html>

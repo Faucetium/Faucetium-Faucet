@@ -1,0 +1,88 @@
+{{#if loggedIn}}
+  {{#if isAdmin}}
+    <table>
+      <tr>
+        <th>username</th>
+        <th>email</th>
+        <th>account</th>
+        <th>score</th>
+        <th>isBanned</th>
+        <th>withdraw Pending</th>
+        <th>withdraw Confirmed</th>
+        <th>referralCode</th>
+        <th>referrer</th>
+        <th>referrer Referral Code</th>
+        <th>sessions</th>
+        <th>Confirm Withdrawal</th>
+        <th>&nbsp;&nbsp;&nbsp;&nbsp;</th>
+        <th>Ban User</th>
+        <th>Reset password</th>
+      </tr>
+      {{#each users}}
+        <tr>
+          <td>{{username}}</td>
+          <td>{{email}}</td>
+          <td>{{account}}</td>
+          <td>{{score}}</td>
+          <th>{{isBanned}}</th>
+          <th>{{withdrawPending}}</th>
+          <th>{{withdrawConfirmed}}</th>
+          <th>{{referralCodeShort}}</th>
+          <th>{{referrer}}</th>
+          <th>{{referrerReferralCodeShort}}</th>
+          <th>
+            <table>
+              <tr>
+                <th>ip</th>
+                <th>isAdmin</th>
+                <th>timeNext</th>
+                <th>loggedIn</th>
+              </tr>
+              {{#each sessions}}
+                <tr>
+                  <th>{{ip}}</th>
+                  <th>{{isAdmin}}</th>
+                  <th>{{timeNext}}</th>
+                  <th>{{loggedIn}}</th>
+                </tr>
+              {{/each}}
+            </table>
+          </th>
+          <th>
+            <form method="POST">
+              <input type="hidden" name="username" value="{{username}}">
+              <input type="submit" name="action" value="Confirm Withdrawal">
+            </form>
+          </th>
+          <th>
+          </th>
+          <th>
+            {{#if isBanned}}
+              <form method="POST">
+                <input type="hidden" name="username" value="{{username}}">
+                <input type="submit" name="action" value="Unban User">
+              </form>
+            {{else}}
+              <form method="POST">
+                <input type="hidden" name="username" value="{{username}}">
+                <input type="submit" name="action" value="Ban User">
+              </form>
+            {{/if}}
+          </th>
+          <th>
+            <form method="POST">
+              New Password:<br>
+              <input type="text" name="password" value=""><br>
+              <input type="hidden" name="username" value="{{username}}">
+              <input type="submit" name="action" value="Reset Password">
+            </form>
+          </th>
+        </tr>
+      {{/each}}
+    </table>
+  {{else}}
+    Not an admin.
+  {{/if}}
+{{else}}
+  Register and Log In to use the faucet.
+{{/if}}

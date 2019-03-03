@@ -1,0 +1,88 @@
+body {
+  background: #CC9933;
+}
+
+table, tr, td, th {
+  border-color: #916600;
+  border: solid;
+  border-color: black;
+  border-width: 0.5px;
+  font-family: monospace;
+  font-size: 8pt;
+}
+
+input {
+  background-color: #CC9933;
+  border-color: #916600;
+  color: bkack;
+}
+
+#faucet-table-padding {
+  width: 30%;
+  border: none;
+}
+
+#faucet-table {
+  width: 100%;
+  height: 554px;
+  border: none;
+}
+
+#adcopy-outer {
+  background: #CC9933 !important;
+}
+
+#center-column {
+  vertical-align: middle;
+  align: center;
+  border: none;
+}
+
+#center-background {
+  background-image: url("images/content_bg.png");
+  background-repeat: no-repeat;
+  background-position: center;
+  height: 554px;
+  width: 996 px;
+}
+
+.small_image_wrapper {
+  width: 2em;
+  height: 3em;
+  display: inline;
+}
+
+.small_image {
+  width: 2em;
+  height: 3em;
+  vertical-align: middle;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+a {
+  background-color: #916600;
+  color: #FFCF68;
+  padding: 1em 1.5em;
+  text-decoration: none;
+}
+
+a:hover {
+  background-color: #FFCF68;
+  color: #CC9933;
+}
+
+a:active {
+  background-color: #916600;
+  color: yellow;
+}
+
+a:visited:hover {
+  background-color: #FFCF68;
+  color: #CC9933;
+}
+
+a:visited {
+  background-color: #916600;
+  color: #FFCF68;
+}

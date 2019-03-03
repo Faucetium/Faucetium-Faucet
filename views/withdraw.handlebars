@@ -1,0 +1,25 @@
+{{#if loggedIn}}
+  <h2>Withdraw</h2>
+  Total Pending Withdrawn: {{withdrawPending}}<br>
+  Total Confirmed Withdrawn: {{withdrawConfirmed}}<br>
+  Minimum Withdrawal: {{minWithdrawal}}<br>
+  Current Score: {{score}}<br>
+  {{#if minWithdrawalMet}}
+    {{#if isBanned}}
+      Your account is Banned.
+    {{else}}
+      <form method="POST">
+        Withdrawal Amount <input type="number" name="withdraw_amount" min="0" max="{{score}}"><br>
+        <script type="text/javascript" src="http://api.solvemedia.com/papi/challenge.script?k=muaF2Cr7FRIiO6rR567KeqtmvIF18of1">
+        </script>
+        <br>
+        <input type="submit" value="withdraw">
+      </form>
+    {{/if}}
+  {{else}}
+    Score is under Minimum Withdrawal, cannot withdraw yet.
+  {{/if}}
+  <br>
+{{else}}
+  Register and Log In to withdraw.
+{{/if}}

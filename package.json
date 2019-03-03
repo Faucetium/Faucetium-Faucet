@@ -1,0 +1,27 @@
+{
+  "name": "captcha-faucet",
+  "version": "1.0.0",
+  "description": "captcha-faucet",
+  "main": "index.js",
+  "scripts": {
+    "test": "test",
+    "start": "node index.js",
+    "stop": "node stop.js"
+  },
+  "author": "Coranos",
+  "license": "MIT",
+  "dependencies": {
+    "blakejs": "^1.1.0",
+    "chalk": "^2.4.2",
+    "express": "^4.16.4",
+    "express-handlebars": "^3.0.2",
+    "lokijs": "^1.5.6",
+    "request": "^2.88.0",
+    "socket.io": "^2.2.0"
+  },
+  "bin": {
+    "captcha-faucet": "./index.js"
+  },
+  "preferGlobal": true,
+  "devDependencies": {}
+}

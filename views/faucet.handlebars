@@ -1,0 +1,30 @@
+{{#if loggedIn}}
+  <h2>{{username}} Welcome to Faucetium!</h2>
+  Referral Code: <br>
+  <hr>
+  {{referralCode}}
+  <hr>
+  (sign up friends to get {{referralBonus}}% of their score as a bonus!)<br>
+  <p>
+  </p>
+  Score: {{score}}<br>
+  Next Submission Time: {{timer}}<br>
+  {{answer}}
+  {{#if timerMet}}
+    {{#if isBanned}}
+      Your account is Banned.
+    {{else}}
+      <form method="POST">
+        <script type="text/javascript" src="http://api.solvemedia.com/papi/challenge.script?k=muaF2Cr7FRIiO6rR567KeqtmvIF18of1">
+        </script>
+        <br>
+        <input type="submit" value="verify">
+      </form>
+      <br>
+    {{/if}}
+  {{else}}
+    Not Time Yet.
+  {{/if}}
+{{else}}
+  Register and Log In to use the faucet.
+{{/if}}
