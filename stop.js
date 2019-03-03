@@ -5,12 +5,26 @@ if (config.port == undefined) {
   throw Error('port in config.json does not exist.');
 }
 
-// Specify port if your express server is not using default port 80
-const socketClient = io.connect(`http://localhost:${config.port}`);
+const url = `http://localhost:${config.port}`;
 
-socketClient.on('connect', () => {
-  socketClient.emit('npmStop');
+const socketClient = io.connect(url, {
+  timeout: 5000
+});
+
+const timeoutErrorFn = () => {
+  console.log('timeout error, cannot connnect to url', url);
+  process.exit(0);
+}
+
+let timeoutId = setTimeout(timeoutErrorFn, 5000);
+
+var acknCallbackFn = function(err, userData) {
+  clearTimeout(timeoutId);
   setTimeout(() => {
     process.exit(0);
   }, 1000);
+}
+
+socketClient.on('connect', () => {
+  socketClient.emit('npmStop', acknCallbackFn);
 });
