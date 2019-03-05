@@ -231,14 +231,16 @@ const getWithdrawData = (ip) => {
   data.isBanned = true;
   const session = databaseUtil.getSession(ip);
   if (session.username != undefined) {
-    const user = databaseUtil.getUser(session.username);
-    data.withdrawConfirmed = user.withdrawConfirmed;
-    data.withdrawPending = user.withdrawPending;
-    data.score = user.score;
-    if (data.score > data.minWithdrawal) {
-      data.minWithdrawalMet = true;
+    if (databaseUtil.hasUser(session.username)) {
+      const user = databaseUtil.getUser(session.username);
+      data.withdrawConfirmed = user.withdrawConfirmed;
+      data.withdrawPending = user.withdrawPending;
+      data.score = user.score;
+      if (data.score > data.minWithdrawal) {
+        data.minWithdrawalMet = true;
+      }
+      data.isBanned = user.isBanned;
     }
-    data.isBanned = user.isBanned;
   }
   return data;
 }
@@ -367,6 +369,13 @@ app.post('/admin', async (req, res) => {
         user.isBanned = false;
         // console.log('admin', action, username, 'user.isBanned', user.isBanned);
         databaseUtil.setUser(user);
+      }
+    } else if (action == 'Delete User') {
+      if (databaseUtil.hasUser(username)) {
+        const user = databaseUtil.getUser(username);
+        if (user.isBanned) {
+          databaseUtil.deleteUser(user);
+        }
       }
     } else if (action == 'Reset Password') {
       const user = databaseUtil.getUser(username);

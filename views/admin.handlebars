@@ -16,6 +16,7 @@
         <th>Confirm Withdrawal</th>
         <th>&nbsp;&nbsp;&nbsp;&nbsp;</th>
         <th>Ban User</th>
+        <th>Delete User</th>
         <th>Reset password</th>
       </tr>
       {{#each users}}
@@ -67,6 +68,16 @@
                 <input type="hidden" name="username" value="{{username}}">
                 <input type="submit" name="action" value="Ban User">
               </form>
+            {{/if}}
+          </th>
+          <th>
+            {{#if isBanned}}
+              <form method="POST">
+                <input type="hidden" name="username" value="{{username}}">
+                <input type="submit" name="action" value="Delete User">
+              </form>
+            {{else}}
+              <button type="button" disabled>Delete User</button>
             {{/if}}
           </th>
           <th>

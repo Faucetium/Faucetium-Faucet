@@ -244,6 +244,28 @@ const setTableEntry = (table, tablePkCol, tableElt) => {
   return logVal;
 }
 
+const deleteTableEntry = (table, tablePkCol, tableElt) => {
+  if (LOG_DB_SET_GET) {
+    console.log('STARTED deleteTableEntry', table, tablePkCol, tableElt[tablePkCol]);
+  }
+  if (table === undefined) {
+    throw new Error('table is required.');
+  }
+  if (tablePkCol === undefined) {
+    throw new Error('tablePkCol is required.');
+  }
+  if (tableElt === undefined) {
+    throw new Error('tableElt is required.');
+  }
+  const tableElts = db.getCollection(table);
+
+  const logVal = tableElts.remove(tableElt);
+  if (LOG_DB_SET_GET) {
+    console.log('SUCCESS deleteTableEntry', table, tablePkCol, tableElt[tablePkCol], logVal);
+  }
+  return logVal;
+}
+
 const getAllSessions = () => {
   return getTableEntries(sessionsTable);
 }
@@ -291,6 +313,10 @@ const setUser = (user) => {
   return setTableEntry(usersTable, 'username', user);
 }
 
+const deleteUser = (user) => {
+  return deleteTableEntry(usersTable, 'username', user);
+}
+
 const getAllUsers = () => {
   return getTableEntries(usersTable);
 }
@@ -310,6 +336,7 @@ exports.getAllUsers = getAllUsers;
 exports.setUser = setUser;
 exports.getUser = getUser;
 exports.hasUser = hasUser;
+exports.deleteUser = deleteUser;
 exports.getAllSessions = getAllSessions;
 exports.setSession = setSession;
 exports.getSession = getSession;
