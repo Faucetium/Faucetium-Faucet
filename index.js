@@ -488,8 +488,10 @@ server.listen(config.port, (err) => {
 })
 
 const io = require('socket.io')(server);
-io.on('connection', (socketServer) => {
-  socketServer.on('npmStop', () => {
+io.on('connection', (socket) => {
+  socket.on('npmStop', () => {
+    socket.emit('npmStopAck');
+    socket.disconnect(true);
     process.exit(0);
   });
 });
