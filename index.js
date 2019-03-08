@@ -56,6 +56,18 @@ if (config.dbFileName == undefined) {
   throw Error('dbFileName in config.json does not exist.');
 }
 
+if (config.dbBackupFileName == undefined) {
+  throw Error('dbBackupFileName in config.json does not exist.');
+}
+
+if (config.dbAutosaveInterval == undefined) {
+  throw Error('dbAutosaveInterval in config.json does not exist.');
+}
+
+if (config.dbBackupFileMaxCount == undefined) {
+  throw Error('dbBackupFileMaxCount in config.json does not exist.');
+}
+
 if (config.challengeKey == undefined) {
   throw Error('challengeKey in config.json does not exist.');
 }

@@ -2,6 +2,7 @@
 const fs = require('fs');
 const loki = require('lokijs');
 const lfsa = require('lokijs/src/loki-fs-structured-adapter');
+const path = require('path');
 
 // modules
 const blake2HashUtil = require('./blake2-hash-util.js');
@@ -23,10 +24,16 @@ const LOG_DB_SET_GET = false;
 
 const LOG_DB_SAVE = false;
 
+const LOG_DB_BACKUP = true;
+
 // variables
 let db;
 
 let serverReferralSalt;
+
+let getBackupFileName;
+
+let deleteOldBackups;
 
 // functions
 const loadDb = (config) => {
@@ -45,6 +52,45 @@ const loadDb = (config) => {
 
   serverReferralSalt = config.serverReferralSalt;
 
+  getBackupFileName = () => {
+    const prefix = config.dbBackupFileName;
+    const date = new Date().toISOString();
+    return `${prefix}_${date}`;
+  }
+
+  deleteOldBackups = () => {
+    const prefix = path.join(config.dbBackupFileName);
+    const dir = path.join(prefix, '..');
+    if (LOG_DB_BACKUP) {
+      console.log('deleteOldBackups prefix', prefix);
+      console.log('deleteOldBackups dir', dir);
+      console.log('deleteOldBackups maxCount', config.dbBackupFileMaxCount);
+    }
+    var files = fs.readdirSync(dir);
+    files.sort(function(a, b) {
+      return fs.statSync(path.join(dir, b)).mtime.getTime() -
+        fs.statSync(path.join(dir, a)).mtime.getTime();
+    });
+    let sparedCount = 0;
+    for (var i in files) {
+      const file = files[i];
+      const fullFile = path.join(dir, file);
+      if (fullFile.startsWith(prefix)) {
+        sparedCount++;
+        if (sparedCount > config.dbBackupFileMaxCount) {
+          if (LOG_DB_BACKUP) {
+            console.log('remove file', sparedCount, fullFile);
+            fs.unlinkSync(fullFile);
+          }
+        } else {
+          if (LOG_DB_BACKUP) {
+            console.log('spared file', sparedCount, fullFile);
+          }
+        }
+      }
+    }
+  }
+
   const FileStore = {
     mode: 'reference',
     saveDatabase: async (name, data, callback) => {
@@ -52,6 +98,7 @@ const loadDb = (config) => {
         console.log('STARTED dbSave');
       }
       try {
+        fs.writeFileSync(getBackupFileName(), data, 'utf-8');
         const tempName = name + '.tmp';
         fs.writeFileSync(tempName, data, 'utf-8');
         if (fs.existsSync(tempName)) {
@@ -60,6 +107,7 @@ const loadDb = (config) => {
           }
           fs.renameSync(tempName, name);
         }
+        deleteOldBackups();
       } catch (error) {
         console.trace(error);
       }
@@ -86,7 +134,7 @@ const loadDb = (config) => {
   db = new loki(config.dbFileName, {
     adapter: FileStore,
     autosave: true,
-    autosaveInterval: 5000
+    autosaveInterval: config.dbAutosaveInterval
   })
   db.loadDatabase();
   tableNames.forEach((tableName) => {
@@ -97,6 +145,7 @@ const loadDb = (config) => {
       });
     }
   });
+  db.saveDatabase();
 }
 
 const loadDbCloseBinding = () => {
