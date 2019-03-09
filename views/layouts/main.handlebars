@@ -50,6 +50,17 @@
   </div>
   <hr>
   {{> includes/footer }}
+  <script>
+    const hashParams = window.location.hash.substr(1).split('&'); // substr(1) to remove the `#`
+    for (let i = 0; i < hashParams.length; i++) {
+      const p = hashParams[i].split('=');
+      if (p[0].length > 0) {
+        if (document.getElementById(p[0]) !== undefined) {
+          document.getElementById(p[0]).value = decodeURIComponent(p[1]);;
+        }
+      }
+    }
+  </script>
 </body>
 
 </html>

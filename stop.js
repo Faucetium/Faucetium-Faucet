@@ -28,3 +28,4 @@ var acknCallbackFn = function(err, userData) {
 socketClient.on('connect', () => {
   socketClient.emit('npmStop', acknCallbackFn);
 });
+socketClient.on('disconnect', acknCallbackFn);

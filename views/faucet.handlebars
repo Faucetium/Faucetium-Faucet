@@ -1,12 +1,13 @@
 {{#if loggedIn}}
   <h2>{{username}} Welcome to Faucetium!</h2>
-  Referral Code: <br>
-  <hr>
-  {{referralCode}}
-  <hr>
+  Referral Link (copy link location): <br>
+  <br>
+  <br>
+  <a id="referralLinkToCopy" target="_blank" href="/register#referral_code={{referralCode}}">{{referralCode}}</a>
+  <br>
+  <br>
   (sign up friends to get {{referralBonus}}% of their score as a bonus!)<br>
-  <p>
-  </p>
+  <br>
   Score: {{score}}<br>
   Next Submission Time: {{timer}}<br>
   {{answer}}
