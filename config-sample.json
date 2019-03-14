@@ -2,6 +2,7 @@
   "minWithdrawal": 10,
   "scoreIncrement": 5,
   "referralPercentBonus": 20,
+  "scoreDisplayScale":100000000,
   "serverReferralSalt": "",
   "adminUsers": [],
   "adminIps": ["::1", "::ffff:127.0.0.1"],

@@ -266,7 +266,7 @@ app.post('/withdraw', async (req, res) => {
   const ip = getIp(req);
   const response = await captchaUtil.getCaptchaResponse(config, req, ip);
   const responseFlag = response.startsWith('true');
-  const withdrawAmount = parseInt(req.body.withdraw_amount); {
+  const withdrawAmount = parseFloat(req.body.withdraw_amount); {
     const session = databaseUtil.getSession(ip);
     // console.log('STARTED withdraw', ip, responseFlag, req.body.withdraw_amount, withdrawAmount, session.score);
   }
@@ -425,6 +425,7 @@ const getFaucetData = (ip, answer) => {
     const seconds = getTimer(session);
     if (seconds > 0) {
       data.refresh = true;
+      data.refreshInterval = config.refreshInterval;
     }
     if (session.username != undefined) {
       if (databaseUtil.hasUser(session.username)) {
@@ -460,14 +461,14 @@ app.post('/faucet', async (req, res) => {
     const response = await captchaUtil.getCaptchaResponse(config, req, ip);
     if (response.startsWith('true')) {
       const user = databaseUtil.getUser(session.username);
-      user.score += parseInt(config.scoreIncrement);
+      user.score += parseFloat(config.scoreIncrement);
       databaseUtil.setUser(user);
 
       if (databaseUtil.hasUser(user.referrer)) {
         const referrerUser = databaseUtil.getUser(user.referrer);
-        const referrerBonusPercent = parseInt(config.scoreIncrement) *
-          parseInt(config.referralPercentBonus);
-        referrerUser.score += Math.floor(parseInt(referrerBonusPercent / 100));
+        const referrerBonusPercent = parseFloat(config.scoreIncrement) *
+          parseFloat(config.referralPercentBonus);
+        referrerUser.score += parseFloat(referrerBonusPercent / 100);
         databaseUtil.setUser(referrerUser);
       }
 
