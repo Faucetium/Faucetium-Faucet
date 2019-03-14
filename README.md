@@ -8,7 +8,7 @@
 
 # run the following command to install:
 
-  git clone https://github.com/coranos/captcha-faucet.git
+  git clone https://github.com/Faucetium/Faucetium-Faucet.git
 
   npm install
 
