@@ -61,9 +61,9 @@
 
 ## to run in background, use the command:
 
-  screen -dmSL captcha_faucet npm start;
+  screen -dmSL manual_captcha_faucet npm start;
 
-  screen -x captcha_faucet
+  screen -x manual_captcha_faucet
 
 ## to stop, use the command:
 
