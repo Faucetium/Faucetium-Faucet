@@ -84,6 +84,10 @@ if (config.minWithdrawal == undefined) {
   throw Error('minWithdrawal in config.json does not exist.');
 }
 
+if (config.refreshInterval == undefined) {
+  throw Error('refreshInterval in config.json does not exist.');
+}
+
 // variables
 
 const registeredUsers = [];
